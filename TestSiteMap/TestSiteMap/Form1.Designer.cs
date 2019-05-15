@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.GBInputInfo = new System.Windows.Forms.GroupBox();
             this.BtnTest = new System.Windows.Forms.Button();
             this.IndexUrl = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TLogInfo = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TFaileUrls = new System.Windows.Forms.TextBox();
             this.GBInputInfo.SuspendLayout();
@@ -43,90 +44,67 @@
             // 
             // GBInputInfo
             // 
+            resources.ApplyResources(this.GBInputInfo, "GBInputInfo");
             this.GBInputInfo.Controls.Add(this.BtnTest);
             this.GBInputInfo.Controls.Add(this.IndexUrl);
             this.GBInputInfo.Controls.Add(this.label1);
-            this.GBInputInfo.Location = new System.Drawing.Point(14, 12);
             this.GBInputInfo.Name = "GBInputInfo";
-            this.GBInputInfo.Size = new System.Drawing.Size(718, 49);
-            this.GBInputInfo.TabIndex = 3;
             this.GBInputInfo.TabStop = false;
-            this.GBInputInfo.Text = "Input info";
             // 
             // BtnTest
             // 
-            this.BtnTest.Location = new System.Drawing.Point(631, 15);
+            resources.ApplyResources(this.BtnTest, "BtnTest");
             this.BtnTest.Name = "BtnTest";
-            this.BtnTest.Size = new System.Drawing.Size(72, 21);
-            this.BtnTest.TabIndex = 5;
-            this.BtnTest.Text = "Start Test";
             this.BtnTest.UseVisualStyleBackColor = true;
             this.BtnTest.Click += new System.EventHandler(this.BtnTest_Click);
             // 
             // IndexUrl
             // 
-            this.IndexUrl.Location = new System.Drawing.Point(155, 16);
+            resources.ApplyResources(this.IndexUrl, "IndexUrl");
             this.IndexUrl.Name = "IndexUrl";
-            this.IndexUrl.Size = new System.Drawing.Size(453, 20);
-            this.IndexUrl.TabIndex = 4;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 20);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Please input sitemap index url";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(14, 67);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.TLogInfo);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(718, 171);
-            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Log";
             // 
-            // textBox1
+            // TLogInfo
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 20);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(696, 145);
-            this.textBox1.TabIndex = 0;
+            resources.ApplyResources(this.TLogInfo, "TLogInfo");
+            this.TLogInfo.Name = "TLogInfo";
+            this.TLogInfo.ReadOnly = true;
             // 
             // groupBox2
             // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.TFaileUrls);
-            this.groupBox2.Location = new System.Drawing.Point(14, 244);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(718, 168);
-            this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Failed Url";
             // 
             // TFaileUrls
             // 
-            this.TFaileUrls.Location = new System.Drawing.Point(7, 20);
-            this.TFaileUrls.Multiline = true;
+            resources.ApplyResources(this.TFaileUrls, "TFaileUrls");
             this.TFaileUrls.Name = "TFaileUrls";
             this.TFaileUrls.ReadOnly = true;
-            this.TFaileUrls.Size = new System.Drawing.Size(696, 142);
-            this.TFaileUrls.TabIndex = 0;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 424);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.GBInputInfo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
             this.GBInputInfo.ResumeLayout(false);
             this.GBInputInfo.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -144,7 +122,7 @@
         private System.Windows.Forms.TextBox IndexUrl;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TLogInfo;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox TFaileUrls;
     }
