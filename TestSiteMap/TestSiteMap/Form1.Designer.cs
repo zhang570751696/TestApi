@@ -62,6 +62,7 @@
             // 
             resources.ApplyResources(this.IndexUrl, "IndexUrl");
             this.IndexUrl.Name = "IndexUrl";
+            this.IndexUrl.Click += new System.EventHandler(this.ChooseFolderPath_Click);
             // 
             // label1
             // 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -54,19 +55,40 @@ namespace TestSiteMap
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<List<string>> ReadXmlFromUrl(string url)
+        public static List<string> ReadXmlFromUrl(string url)
         {
             List<string> fileUrlLists = new List<string>();
+            
 
             XmlTextReader reader = new XmlTextReader(url);
-            while (await reader.ReadAsync())
+            while (reader.Read())
             {
                 switch (reader.NodeType)
                 {
                     case XmlNodeType.Element: // the node is an element
+                        if(reader.Name == "loc")
+                        {
+                            var value = reader.ReadElementString();
+                            if (!fileUrlLists.Contains(value))
+                            {
+                                fileUrlLists.Add(value);
+                            }
+                            
+                        }
+                        if(reader.Name == "xhtml:link")
+                        {
+                            var relValue = reader.GetAttribute("rel");
+                            var hrefValue = reader.GetAttribute("href");
+                            if (!string.IsNullOrEmpty(hrefValue))
+                            {
+                                if (!fileUrlLists.Contains(hrefValue))
+                                {
+                                    fileUrlLists.Add(hrefValue);
+                                }
+                            }
+                        }
                         break;
                     case XmlNodeType.Text:  //Display the text in each element.
-                        fileUrlLists.Add(reader.Value);
                         break;
                     case XmlNodeType.EndElement: // Display the end of the element
                         break;
@@ -74,6 +96,21 @@ namespace TestSiteMap
             }
 
             return fileUrlLists;
+        }
+
+        public static async Task<bool> SendGetRequest(string url)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                //HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+                var responseMessage = await client.GetAsync(url);
+                return responseMessage.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
