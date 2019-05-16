@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 using static TestSiteMap.Commom.DelegateInfo;
 
@@ -22,33 +22,43 @@ namespace TestSiteMap
         {
             try
             {
-                var list = HelperUtils.ReadXmlFromUrl(url);
-                WriteLogEvent(string.Format("Get href count: {0}", list.Count));
-                Task.Run(()=>SendRequest(list));
+                HttpClient httpClient = new HttpClient();
+                var requestUrls = HelperUtils.ReadXmlFromUrl(url);
+                WriteLogEvent(string.Format("Get href count: {0}", requestUrls.Count));
+                if (requestUrls != null && requestUrls.Any())
+                {
+                    IEnumerable<Task> tasks = from url in requestUrls select SendRequest(url, httpClient);
+                    var requestTask = tasks.ToArray();
+                    Task.WaitAll(requestTask);
+                }
+                WriteLogEvent("Request done!");
             }
             catch (Exception ex)
             {
-                WriteLogEvent(string.Format("Can not open this url:{0}{1}Exception:{2}", url, Environment.NewLine,ex.Message));
+                WriteLogEvent(string.Format("Can not open this url:{0}{1}Exception:{2}", url, Environment.NewLine, ex.Message));
             }
         }
 
-        public async Task SendRequest(List<string> requestUrls)
+        public async Task SendRequest(string requestUrl, HttpClient httpClient)
         {
-            if (requestUrls.Any())
+            var result = false;
+            try
             {
-                foreach (var requestUrl in requestUrls)
-                {
-                    var result = await HelperUtils.SendGetRequest(requestUrl);
-                    if (result)
-                    {
-                        WriteLogEvent?.Invoke(string.Format("Send request url: {0}, Result: Success", requestUrl));
-                    }
-                    else
-                    {
-                        WriteFaliedUrlEvent?.Invoke(requestUrl);
-                    }
-                  
-                }
+                var response = await httpClient.GetAsync(requestUrl);
+                result = response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+          
+            if (result)
+            {
+                WriteLogEvent?.Invoke(string.Format("Send request url: {0}, Result: Success", requestUrl));
+            }
+            else
+            {
+                WriteFaliedUrlEvent?.Invoke(requestUrl);
             }
         }
     }
