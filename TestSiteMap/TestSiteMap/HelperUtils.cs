@@ -61,7 +61,6 @@ namespace TestSiteMap
         {
             List<string> fileUrlLists = new List<string>();
 
-
             XmlTextReader reader = new XmlTextReader(url);
             while (reader.Read())
             {
@@ -100,17 +99,5 @@ namespace TestSiteMap
             return fileUrlLists;
         }
 
-        public static async Task<bool> SendGetRequest(string url)
-        {
-            try
-            {
-                var responseMessage = await client.GetAsync(url);
-                return responseMessage.IsSuccessStatusCode;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
     }
 }

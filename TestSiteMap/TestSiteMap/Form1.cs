@@ -91,12 +91,13 @@ namespace TestSiteMap
         public void ClearLogInfo()
         {
             this.TLogInfo.Text = string.Empty;
+            this.TFaileUrls.Text = string.Empty;
         }
 
         private void ChooseFolderPath_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "*.xml|";
+            dialog.Filter = "xml files (*.xml)|*.xml";
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 this.IndexUrl.Text = dialog.FileName;
